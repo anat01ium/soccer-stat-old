@@ -11,6 +11,9 @@ const Header = () => {
       <div>
         Soccer Stat
       </div>
+
+      <p>Football data provided by the Football-Data.org API</p>
+      
       <div>
         {MENU.map(({ title, link }) => (
           <A key={title} href={link}>

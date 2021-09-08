@@ -1,6 +1,6 @@
 const config = {
   uri: {
-    scheme: 'http',
+    scheme: 'https',
     host: 'api.football-data.org',
     path: {
       competitions: '/v2/competitions',
