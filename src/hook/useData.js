@@ -16,6 +16,7 @@ const useData = (pathname, id) => {
     };
 
     fetchData();
+  // eslint-disable-next-line
   }, [])
 
   return data
