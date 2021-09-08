@@ -22,7 +22,7 @@ const CompetitionTeams = ({ id }) => {
           />
           <ul>
             {data.teams
-              .filter(({ name }) => name.toLowerCase().includes(searchValue))
+              .filter(({ name }) => name.toLowerCase().includes(searchValue.toLowerCase()))
               .map(({ id, name }) => <li key={id}><A href={`/teams/${id}/matches`}>{name}</A></li>)}
           </ul>
         </div>
