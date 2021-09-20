@@ -8,9 +8,7 @@ import s from './Header.module.scss'
 const Header = () => {
   return (
     <div className={s.root}>
-      <div>
-        Soccer Stat
-      </div>
+      <span uk-icon="world"></span>
 
       <p>Football data provided by the Football-Data.org API</p>
       

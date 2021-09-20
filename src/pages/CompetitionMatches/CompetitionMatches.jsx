@@ -25,58 +25,57 @@ const CompetitionMatches = ({ id }) => {
       {!data && <Loader />}
       {data &&
         <div className="uk-animation-fade uk-animation-fast">
-          <h1>{data.competition.name} Matches</h1>
+          <h1>{data?.competition.name} Matches</h1>
+            
+          {data?.count === 0 ? <p>No matches</p> :
+            <div>
+              <h4 className={s.dateFilterTitle}>Date filter</h4>
+              <div className={s.dateFilter}>
+                <DatePicker
+                  className="uk-input"
+                  dateFormat="dd.MM.y"
+                  selected={startDate}
+                  onChange={date => setStartDate(date)} 
+                />
+                <DatePicker
+                  className="uk-input"
+                  dateFormat="dd.MM.y"
+                  selected={endDate}
+                  onChange={date => setEndDate(date)} 
+                />
+              </div>
 
-          <h4 className={s.dateFilterTitle}>Date filter</h4>
-          <div className={s.dateFilter}>
-            <DatePicker
-              className="uk-input"
-              locale="ru-RU"
-              dateFormat="dd.MM.y"
-              selected={startDate}
-              onChange={date => setStartDate(date)} 
-            />
-            <DatePicker
-              className="uk-input"
-              locale="ru-RU"
-              dateFormat="dd.MM.y"
-              selected={endDate}
-              onChange={date => setEndDate(date)} 
-            />
-          </div>
-
-          <table className="uk-table">
-            <caption></caption>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Home team</th>
-                <th>Away team</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.matches
-                .filter(({ utcDate }) => new Date(utcDate) >= startDate & new Date(utcDate) <= endDate)
-                .map(({ id,
-                        utcDate,
-                        status,
-                        homeTeam: { name: team1 },
-                        awayTeam: { name: team2 },
-                        score: { fullTime: { homeTeam: team1score, awayTeam: team2score } }
-                }) => (
-                  <tr key={id}>
-                    <td>{new Date(utcDate).toLocaleDateString('ru-RU')}</td>
-                    <td>{team1}</td>
-                    <td>{team2}</td>
-                    {status === 'FINISHED' && <td>{team1score}:{team2score}</td>}
+              <table className="uk-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Home team</th>
+                    <th>Away team</th>
+                    <th>Score</th>
                   </tr>
-                ))
-              }
-            </tbody>
-          </table>
-          
-          {data?.count === 0 && <p>No matches</p>}
+                </thead>
+                <tbody>
+                  {data?.matches
+                    .filter(({ utcDate }) => new Date(utcDate) >= startDate & new Date(utcDate) <= endDate)
+                    .map(({ id,
+                            utcDate,
+                            status,
+                            homeTeam: { name: team1 },
+                            awayTeam: { name: team2 },
+                            score: { fullTime: { homeTeam: team1score, awayTeam: team2score } }
+                    }) => (
+                      <tr key={id}>
+                        <td>{new Date(utcDate).toLocaleDateString('ru-RU')}</td>
+                        <td>{team1}</td>
+                        <td>{team2}</td>
+                        {status === 'FINISHED' && <td>{team1score}:{team2score}</td>}
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
         </div>
       }
     </>

@@ -16,7 +16,7 @@ const CompetitionTeams = ({ id }) => {
       {!data && <Loader />}
       {data && 
         <div className="uk-animation-fade uk-animation-fast">
-          <h1>{data.competition.name} Teams</h1>
+          <h1>{data?.competition.name} Teams</h1>
           <A className={s.calendarLink} href={`/competitions/${id}/matches`}>Competition Calendar</A>
           <form className="uk-search uk-search-default">
             <span uk-search-icon=""></span>
@@ -28,7 +28,7 @@ const CompetitionTeams = ({ id }) => {
             />
           </form>
           <ul>
-            {data.teams
+            {data?.teams
               .filter(({ name }) => name.toLowerCase().includes(searchValue.toLowerCase()))
               .map(({ id, name }) => <li key={id}><A href={`/teams/${id}/matches`}>{name}</A></li>)}
           </ul>

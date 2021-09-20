@@ -26,9 +26,9 @@ const TeamMatches = ({ id }) => {
   return (
     <>
       {!data && <Loader />}
-      {team &&
+      {data &&
         <div className="uk-animation-fade uk-animation-fast">
-          <h1>{team.name} Matches</h1>
+          <h1>{team?.name} Matches</h1>
           
           {data?.count === 0 ? <p>No matches</p> : 
             <div>
@@ -36,14 +36,12 @@ const TeamMatches = ({ id }) => {
               <div className={s.dateFilter}>
                 <DatePicker
                   className="uk-input"
-                  locale="ru-RU"
                   dateFormat="dd.MM.y"
                   selected={startDate}
                   onChange={date => setStartDate(date)} 
                 />
                 <DatePicker
                   className="uk-input"
-                  locale="ru-RU"
                   dateFormat="dd.MM.y"
                   selected={endDate}
                   onChange={date => setEndDate(date)} 

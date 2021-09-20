@@ -27,7 +27,7 @@ const Competitions = () => {
             />
           </form>
           <ul>
-            {data.competitions
+            {data?.competitions
               .filter(({ code }) => competitions.includes(code))
               .filter(({ name }) => name.toLowerCase().includes(searchValue.toLowerCase()))
               .map(({ id, name }) => <li key={id}><A href={`/competitions/${id}/teams`}>{name}</A></li>)}

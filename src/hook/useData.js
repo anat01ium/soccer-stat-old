@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 
+// import { useAlert } from 'react-alert'
+import { toast } from 'react-toastify';
+
 import config from '../config'
 
 const useData = (pathname, id) => {
@@ -11,7 +14,9 @@ const useData = (pathname, id) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const newData = await fetch(url, options).then(res => res.json()).catch(error => alert(`Error: ${error} \n\nДля получения информации сайт использует бесплатный API с ограниченной частотой запросов. Попробуйте обновить страницу через 30 секунд.`))
+      const newData = await fetch(url, options).then(res => res.json()).catch(error => {
+        toast.error(`Для получения информации сайт использует бесплатный API с ограниченной частотой запросов. Попробуйте обновить страницу через 30 секунд.`)
+      })
       setData(newData)
     };
 
