@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 
+import Loader from '../../components/Loader/Loader'
+
 import useData from '../../hook/useData'
 
 import 'react-datepicker/dist/react-datepicker.css'
@@ -20,38 +22,61 @@ const CompetitionMatches = ({ id }) => {
 
   return (
     <>
+      {!data && <Loader />}
       {data &&
-        <div>
+        <div className="uk-animation-fade uk-animation-fast">
           <h1>{data.competition.name} Matches</h1>
 
           <h4 className={s.dateFilterTitle}>Date filter</h4>
           <div className={s.dateFilter}>
-            <DatePicker 
+            <DatePicker
+              className="uk-input"
+              locale="ru-RU"
+              dateFormat="dd.MM.y"
               selected={startDate}
               onChange={date => setStartDate(date)} 
             />
-            <DatePicker 
+            <DatePicker
+              className="uk-input"
+              locale="ru-RU"
+              dateFormat="dd.MM.y"
               selected={endDate}
               onChange={date => setEndDate(date)} 
             />
           </div>
 
-          <ul>
-            {data.matches
-              .filter(({ utcDate }) => new Date(utcDate) >= startDate & new Date(utcDate) <= endDate)
-              .map(({ id,
-                      utcDate,
-                      status,
-                      homeTeam: { name: team1 },
-                      awayTeam: { name: team2 },
-                      score: { fullTime: { homeTeam: team1score, awayTeam: team2score } }
-              }) => (
-                <li key={id}>
-                  {new Date(utcDate).toLocaleDateString()} {team1} - {team2} {status === 'FINISHED' && `(${team1score}:${team2score})`}
-                </li>
-              ))
-            }
-          </ul>
+          <table className="uk-table">
+            <caption></caption>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Home team</th>
+                <th>Away team</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.matches
+                .filter(({ utcDate }) => new Date(utcDate) >= startDate & new Date(utcDate) <= endDate)
+                .map(({ id,
+                        utcDate,
+                        status,
+                        homeTeam: { name: team1 },
+                        awayTeam: { name: team2 },
+                        score: { fullTime: { homeTeam: team1score, awayTeam: team2score } }
+                }) => (
+                  <tr key={id}>
+                    <td>{new Date(utcDate).toLocaleDateString('ru-RU')}</td>
+                    <td>{team1}</td>
+                    <td>{team2}</td>
+                    {status === 'FINISHED' && <td>{team1score}:{team2score}</td>}
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+          
+          {data?.count === 0 && <p>No matches</p>}
         </div>
       }
     </>

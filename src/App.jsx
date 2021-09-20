@@ -9,10 +9,10 @@ function App() {
   const match = useRoutes(routes)
 
   return (
-    <>
+    <div className="uk-container">
       <Header />
       {match}
-    </>
+    </div>
   )
 }
 
